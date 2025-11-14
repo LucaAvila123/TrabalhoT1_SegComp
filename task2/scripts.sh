@@ -52,4 +52,6 @@ openssl x509 -req -in server/server.csr.pem \
   -out server/server.cert.pem -days 365 -sha256 \
   -extfile server/san.cnf
 
+cat server/server.cert.pem ca/intermediate/intermediateCA.cert.pem > server/server_fullchain.pem
+
 echo "[OK] PKI criada em task2-openssl-pki/. Agora suba o Nginx com docker compose."

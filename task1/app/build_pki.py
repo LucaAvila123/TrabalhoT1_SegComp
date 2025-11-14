@@ -47,6 +47,7 @@ def self_signed_ca(key, common):
                                      content_commitment=False, data_encipherment=False,
                                      key_agreement=False, encipher_only=False, decipher_only=False),
                        critical=True)
+        .add_extension(x509.SubjectKeyIdentifier.from_public_key(key.public_key()), critical=False)
     )
     return builder.sign(private_key=key, algorithm=hashes.SHA256())
 
@@ -95,6 +96,7 @@ def sign_server_csr(csr, issuer_cert, issuer_key):
                                      content_commitment=False, data_encipherment=False,
                                      key_agreement=False, encipher_only=False, decipher_only=False),
                        critical=True)
+        .add_extension(x509.AuthorityKeyIdentifier.from_issuer_public_key(issuer_key.public_key()), critical=False)
     )
     return builder.sign(private_key=issuer_key, algorithm=hashes.SHA256())
 
@@ -130,5 +132,14 @@ def main():
 
     print("[OK] Raiz, Intermediária, Server e cadeia gerados em:", BASE)
 
+    # Fullchain
+    fullchain = SRV_DIR / "server_fullchain.pem"
+    fullchain.write_bytes(
+        srv_cert.public_bytes(serialization.Encoding.PEM) +
+        int_cert.public_bytes(serialization.Encoding.PEM)
+    )
+    print(f"[OK] Fullchain gerado para o Docker: {fullchain}")
+
 if __name__ == "__main__":
     main()
+
