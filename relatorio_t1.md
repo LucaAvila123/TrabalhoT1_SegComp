@@ -7,9 +7,9 @@
 ### Informações do Grupo
 - **Disciplina:** Segurança em Computação 2025/2
 - **Integrantes:**  
-  - Nome: _____________ 
-  - Nome: _____________  
-  - Nome: _____________  
+  - Nome: Arthur Tartaglia Pereira 
+  - Nome: Erico Gonçalves Guedes
+  - Nome: Luca da Silva Ávila
 
 ---
 
