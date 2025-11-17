@@ -160,13 +160,19 @@ Por fim, o arquivo `server_fullchain.pem` foi gerado, concatenando o `server.cer
 
 ### 3.4. Importação da CA Raiz no Navegador
 Descreva o procedimento adotado para importar o certificado raiz no navegador:  
-- Caminho seguido no navegador: __________________________  
+- Caminho seguido no navegador: Configurações -> Privacidade, pesquisa e serviços ->  Segurança -> Gerenciar Certificados -> Importar
 - Resultado esperado: navegador passou a confiar na CA criada? Justifique
+
+Sim, a confiança foi estabelecida pois ao importar manualmente o certificado para o navegador, a confiança foi estabelecida.
+
 - Inclua uma captura de tela do certificado confiável.
+Certificados adicionados:
+![Certificados](/task2/images/certificados.png)
 
 ### 3.5. Validação da Cadeia
-- Resultado do comando de verificação: ____________________________  
-- Screenshot do navegador com HTTPS ativo e confiável: *(inserir imagem)*
+- Resultado do comando de verificação: `[OK] TLS estabelecido. Sujeito: ((('countryName', 'BR'),), (('organizationName', 'UFES'),), (('commonName', 'localhost'),))`
+
+![Certificado local](/task2/images/task2-certificado-local.png)
 
 ---
 
@@ -174,27 +180,39 @@ Descreva o procedimento adotado para importar o certificado raiz no navegador:
 Responda às questões abaixo com base na experiência prática:
 
 - Quais as principais diferenças entre o uso de certificados públicos e privados?  
+
+As principais diferenças estão no nível de confiança e na validação. Os públicos são confiáveis automaticamente, pois a confiança é pré estabelecida pela autoridade do Let's Encrypt, por exemplo. Já sobre a validação, os públicos exigem que a validação passe por um processo controlado, no qual não é possível emitir um certificado público para o localhost, por exemplo. Já nos privados, o controle é total, em que se pode emitir certificados para qualquer caminho, como o localhost, pois no privado, quem cria o certificado é a autoridade.
+
 - Em quais cenários cada abordagem é mais adequada?  
+
+Os certificados públicos são ideais para sites que sejam hospedados em domínio público. Dessa forma, qualquer usuário pode acessar o site de forma segura sem precisar ficar configurando manualmente os certificados. Já os certificados privados são mais adequados para redes internas, como uma rede corporativa. Nesse caso, todo o controle é mais rígido, exigindo uma configuração manual de cada usuário que irá ter acesso a rede, como bancos de dados, dashboards, etc.
+
 - Por que a importação da CA raiz é necessária no segundo cenário?  
+Na task 1, o navegador já possui o certificado Let's Encrypt adicionado. Por isso, não é necessário a configuração. Já no segundo cenário, é necessário importar a CA pois não existe configuração no navegador que conheça o certificado que foi criado. Logo, ele a consideraria não confiável. A importação foi justamente para registrar no navegador que aquele certificado é confiável.
 
 ---
 
 ## 5. Conclusões
 - Apresente as principais lições aprendidas durante o projeto.  
+
+O projeto permitiu compreender diversos conceitos de PKI e como a segurança das redes https funciona. As lições aprendidas envolvem entender como é estruturada a cadeia completa, como funciona a hierarquia das CA's, da raiz, intermediária até o servidor. Também foi aprendido as diferenças entre implementação dos certificados usando python e OpenSSL, na qual o python permitiu abstrair complexidades maiores que o OpenSSL não abstrai.
+
 - Explique a importância prática da certificação digital e da confiança em ambientes seguros.
+
+A certificação digital é o núcleo principal para que servidores e clientes possuam uma conexão confiável entre si. Com os certificados, os sites conseguem provar matematicamente que a URL acessada realmente é a que está tentando acessar, e não um servidor impostor malicioso. Ela também é importante para garantir que os dados sejam adequadamente criptografados, fazendo com que todas as transferências de informações entre cliente e servidor ocorram de forma segura, e impeçam um atacante de ter acesso aos dados caso esteja escutando a rede.
 
 ---
 
 ## Checklist Final
 | Item | Status |
 |------|--------|
-| Servidor Nginx funcional (Docker) | ✅ / ❌ |
-| Certificado Let's Encrypt emitido e válido | ✅ / ❌ |
-| PKI própria criada (Root + Intermediária) | ✅ / ❌ |
-| Importação da CA raiz no navegador | ✅ / ❌ |
-| Cadeia de certificação validada com sucesso | ✅ / ❌ |
-| Relatório completo e entregue | ✅ / ❌ |
-| Apresentação prática (vídeo) | ✅ / ❌ |
+| Servidor Nginx funcional (Docker) | ✅ |
+| Certificado Let's Encrypt emitido e válido | ✅ |
+| PKI própria criada (Root + Intermediária) | ✅ |
+| Importação da CA raiz no navegador | ✅ |
+| Cadeia de certificação validada com sucesso | ✅ |
+| Relatório completo e entregue | ✅  |
+| Apresentação prática (vídeo) | ✅ |
 
 ---
 
