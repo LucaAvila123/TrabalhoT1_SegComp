@@ -1,4 +1,0 @@
-subjectAltName=DNS:localhost
-basicConstraints=critical,CA:false
-keyUsage=critical,digitalSignature,keyEncipherment
-extendedKeyUsage=serverAuth
